@@ -64,9 +64,15 @@ ROBOTSTXT_OBEY = False
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'hupu.pipelines.HupuPipeline': 300,
-#}
+MYSQL_DB_NAME = 'scrapy'
+MYSQL_HOST = 'localhost'
+MYSQL_PORT = 3306
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = '123456'
+ITEM_PIPELINES = {
+    'hupu.pipelines.HupuPipeline': 300,
+    'hupu.pipelines.MySQLAsyncPipeline': 400,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
