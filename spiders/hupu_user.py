@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from scrapy import Request
-
+import browsercookie
 from scrapy.linkextractors import LinkExtractor
 
 from ..items import HupuItem
