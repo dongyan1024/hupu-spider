@@ -6,11 +6,15 @@
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+import browsercookie
 from scrapy.downloadermiddlewares.httpproxy import HttpProxyMiddleware
+from scrapy.downloadermiddlewares.cookies import CookiesMiddleware
 from collections import defaultdict
 import json
 import random
 import base64
+
+
 class HupuSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
@@ -104,3 +108,14 @@ class HupuDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+class BrowserCookiesMiddleware(CookiesMiddleware):
+    def __init__(self, debug=False):
+        super().__init__(debug)
+        self.load_browser_cookies()
+
+    def load_browser_cookies(self):
+        jar = self.jars['chrome']
+        chrome_cookiejar = browsercookie.chrome()
+        for cookie in chrome_cookiejar:
+            jar.set_cookie(cookie)
